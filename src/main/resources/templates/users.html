@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Manage Users</title>
+<!-- eclipse somehow cannot understand attr "ref", "th:src", "th:href" -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+	<div class="container-fluid text-center">
+		<div>
+			<h2>Manage Users</h2>
+		</div>
+		
+		<div th:if="${message}" class="alert alert-success text-center">
+		  [[${message}]]
+		</div>
+		<div class="m-2"> <!-- m-2 is margin 2 -->
+		   <a class="h3" th:href="@{/admin/users/new}">Add New User</a>
+		   <!-- cannot use <h3 th:href="@{/admin/users/new}"> -->
+		</div>
+		<div>
+			<table class="table table-bordered">
+				<thead class="table-dark">
+					<!-- 1. don't mispell to "thread" -->
+					<!-- 2. use "table-dark", instead of "thead-dark" -->
+					<tr>
+						<th>ID</th>
+						<th>E-mail</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Enabled</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="user : ${listUsers}">
+						<tr>
+							<td>[[${user.id}]]</td>
+							<td>[[${user.email}]]</td>
+							<td>[[${user.firstName}]]</td>
+							<td>[[${user.lastName}]]</td>
+							<td>[[${user.enabled}]]</td>
+							<td>
+							<!--  mr-3 is margin right 3 -->
+							<a class="h4 mr-3" th:href="@{'/admin/users/edit/' + ${user.id}}">Edit</a>
+							<a class="h4" th:href="@{'/admin/users/delete/' + ${user.id}}">Delete</a>
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
