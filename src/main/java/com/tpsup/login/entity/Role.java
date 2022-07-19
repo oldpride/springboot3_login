@@ -3,6 +3,7 @@ package com.tpsup.login.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,12 +16,21 @@ import javax.persistence.Table;
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "role_id")
 	private Integer id;
 	private String role;
 	
-//	@ManyToMany(mappedBy = "roles")
-//	private Set<User> users = new HashSet<User>();
+    @ManyToMany(mappedBy = "roles") // this "roles" is defined in User.java, not the login_roles table
+    private Set<User> users = new HashSet<User>();
 	
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
 	public Role () {}
 	
 //	public Set<User> getUsers() {

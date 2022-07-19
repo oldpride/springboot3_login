@@ -1,5 +1,6 @@
 package com.tpsup.login.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
@@ -14,10 +15,11 @@ import javax.persistence.Table;
 
 public class UserRole {
 	@Id
-	// @Column(name="roleId")
-	private long roleId;
+	@Column(name="role_id")
+	private Integer roleId;
 	
 	@Id
+	@Column(name="user_id")
 	private String userId;
 
 }

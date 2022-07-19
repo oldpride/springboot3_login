@@ -3,6 +3,8 @@ package com.tpsup.login.entity;
 import java.io.Serializable;
 
 public class UserRoleId implements Serializable {
-	private long roleId;
+	// used by UserRoleRepository.java
+	
+	private Integer roleId;
 	private String userId;
 }

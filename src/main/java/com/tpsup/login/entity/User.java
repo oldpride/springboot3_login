@@ -1,10 +1,16 @@
 package com.tpsup.login.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 // these two annotations link class to database. These are from java hibernate
@@ -13,7 +19,7 @@ import javax.persistence.Table;
 public class User {
 	@Id
 	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id", unique = true, length = 10)
+	@Column(name="user_id", unique = true, length = 10)
 	private String id;
 	
 	@Column(nullable = false, unique = true, length = 45) // validation: not null, must be unique, max len = 45
@@ -78,6 +84,23 @@ public class User {
 		this.lastName = lastName;
 	}
 	
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "login_users_roles",
+			joinColumns = {@JoinColumn(name="user_id")},
+			inverseJoinColumns = {@JoinColumn(name="role_id")}
+	)
+	private Set<Role> roles = new HashSet<Role>();
+	
+	
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	@Override
 	public String toString () {
 		return "User {" +
