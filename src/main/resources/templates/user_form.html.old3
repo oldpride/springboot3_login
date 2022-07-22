@@ -7,21 +7,15 @@
 <!-- eclipse somehow cannot understand attr "ref", "th:src", "th:href" -->
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-<style type="text/css">
-.required { color: red; }
-</style>
 </head>
 
-
-
 <body>
-	<div layout:fragment="content" class="container">
+	<div class="container-fluid">
 		<div class="text-center">
 			<h2>[[${pageTitle}]]</h2>
 		</div>
 
-		<form class="form-horizontal" th:action="@{/admin/users/save}"
-			method="post" th:object="${user}"
+		<form th:action="@{/admin/users/save}" method="post" th:object="${user}"
 			style="max-width: 500px; margin: 0 auto;">
 			<!--  use max-width to minimize the form -->
 			<!-- This html is used by both "Add User" and "Edit User".
@@ -31,15 +25,11 @@
 
 			<div class="border border-secondary rounded p-3">
 				<!-- add rounded border with padding=3  -->
-				<div class="form-group row p-1"
-					th:classappend="${#fields.hasErrors('id')}? 'has-error'">
-					<label class="col-sm-4 control-label">User Id: <span
-						class="required">*</span></label>
+				<div class="form-group row p-1">
+					<label class="col-sm-4 col-form-label">Id:</label>
 					<div class="col-sm-8">
-						<input type="text" th:field="*{id}" class="form-control" required
-							minlength="3" maxlength="15" /> <span
-							th:if="${#fields.hasErrors('id')}" th:errros="*{id}"
-							th:class="help-block">id Errors</span>
+						<input type="text" th:field="*{id}" class="form-control"
+							required minlength="3" maxlength="15" />
 					</div>
 				</div>
 				<div class="form-group row p-1">
@@ -57,25 +47,12 @@
 					</div>
 				</div>
 				<div class="form-group row p-1">
-					<label class="col-sm-4 col-form-label">Last Name</label>
+					<label class="col-sm-4 col-form-label">Last Name:</label>
 					<div class="col-sm-8">
 						<input type="text" th:field="*{lastName}" class="form-control"
 							required minlength="2" maxlength="45" />
 					</div>
 				</div>
-				<div class="form-group row p-1">
-					<label class="col-sm-4 col-form-label">Select Role(s)</label>
-					<div class="col-sm-8">
-						<select class="custom-select" id="multiSelectElementsSelected"
-							name="multiSelectElementsSelected" multiple="multiple" required="required"
-							th:field="*{roles}">
-							<option class="custom-select" th:each="role : ${roles}"
-								th:value="${role.id}" th:text="${role.role}"></option>
-						</select> <span th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"
-							th:class="help-block">role Errors</span>
-					</div>
-				</div>
-
 				<div class="form-group row p-1">
 					<label class="col-sm-4 col-form-label">Password:</label>
 					<div class="col-sm-8">
